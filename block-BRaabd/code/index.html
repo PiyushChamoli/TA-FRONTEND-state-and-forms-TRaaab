@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .box {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            background-color: white;
+            color: blue;
+            border: 1px solid blue;
+        }
+        .active {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+    <title>Handling State</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+        let root = document.querySelector('#root')
+
+        let labels = ["basketball", "pubg", "tiger", "laptop", "phone", "cricket"]
+
+        class App extends React.Component() {
+            constructor(props) {
+                super(props)
+                this.state = {
+                    active : "basketball",
+                }
+            }
+            render() {
+                return (
+                    <div className='box'>
+                    {labels.map((tag) => (
+                        <button 
+                            key={tag} 
+                            className={ this.state.active === tag ? 'active' : '' }
+                            onClick={ () => {this.setState({ active:tag })} }>{tag}
+                        </button> 
+                    ))}
+                    <figure>
+                        <img src={`../assets/${this.state.active}.jpg`} 
+                        alt={this.state.active}
+                        style={{ height:300 }} />    
+                    </figure>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<App />, root)
+    </script>
+</body>
+</html>
