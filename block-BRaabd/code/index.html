@@ -9,7 +9,7 @@
             max-width: 400px;
             margin: 0 auto;
             padding: 0 32px;
-        }
+        }   
         button {
             display: block;
             width: 100%;
@@ -36,9 +36,7 @@
     <script type="text/babel">
         let root = document.querySelector('#root')
 
-        let labels = ["basketball", "pubg", "tiger", "laptop", "phone", "cricket"]
-
-        class App extends React.Component() {
+        class App extends React.Component {
             constructor(props) {
                 super(props)
                 this.state = {
@@ -46,26 +44,28 @@
                 }
             }
             render() {
+                let labels = ["basketball", "pubg", "tiger", "laptop", "phone", "cricket"];
                 return (
                     <div className='box'>
-                    {labels.map((tag) => (
-                        <button 
-                            key={tag} 
-                            className={ this.state.active === tag ? 'active' : '' }
-                            onClick={ () => {this.setState({ active:tag })} }>{tag}
-                        </button> 
-                    ))}
-                    <figure>
-                        <img src={`../assets/${this.state.active}.jpg`} 
-                        alt={this.state.active}
-                        style={{ height:300 }} />    
-                    </figure>
+                        {labels.map((tag) => (
+                            <button 
+                                key={tag} 
+                                className={ this.state.active === tag ? 'active' : '' }
+                                onClick={ () => {this.setState({ active:tag, })} }>{tag}
+                            </button> 
+                        ))
+                        }
+                        <figure>
+                            <img src={`../assets/${this.state.active}.jpg`} 
+                            alt={this.state.active}
+                            style={{ width:'100%' }} />    
+                        </figure>
                     </div>
                 )
             }
         }
 
-        ReactDOM.render(<App />, root)
+        ReactDOM.render(<App/>, root)
     </script>
 </body>
 </html>
