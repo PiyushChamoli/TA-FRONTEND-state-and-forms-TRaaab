@@ -40,42 +40,28 @@
         },
         ];
 
-        function Answer(props) {
-            return (
-                <p className='answer'>{props.answer}</p>
-            )
-        }
-
         class App extends React.Component {
-            constructor(props) {
-                super(props);
-                this.state = {
-                    answer: 0,
-                }
-            }
-
-            handleQuestion = (i) => {
-                this.setState({
-                    answer: i,
-                })
+            constructor() {
+                super();
+                this.state ={
+                    activeIndex: null,
+                };
             }
 
             render() {
-                let ans;
-                if (this.state.answer) {
-                    ans = questions[this.state.answer].A;
-                }
                 return (
-                <div className="container">
-                    {
-                        questions.map((qa, i) => (
-                            <div key={qa.Q}>
-                                <p className='question' onClick={() => this.setState({ answer:i })}>{qa.Q}</p>
-                                <Answer answer={ans} />    
-                            </div>
-                        ))
-                    }        
-                </div>
+                    <ul className="container">
+                        {questions.map((faq,i) => (
+                            <li>
+                                <h2 className='question'
+                                    onClick={() => this.setState(
+                                        { activeIndex: this.state.activeIndex === i ? null : i })}
+                                        >{faq.Q}
+                                </h2>
+                                {i === this.state.activeIndex && <p className='answer'>{faq.A}</p>}    
+                            </li>
+                        ))}
+                    </ul>
                 )
             }
         }
