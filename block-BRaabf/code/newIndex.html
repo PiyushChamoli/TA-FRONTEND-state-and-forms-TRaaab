@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Counter App</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+        let root = document.querySelector('#root')
+
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    counter: 0,
+                    step: 0,
+                    max: 15,
+                }
+            }
+
+            handleIncrement = () => {
+                let { counter,step,max } = this.state
+                this.setState({
+                    counter : counter + step > max ? counter : counter + step,
+                })
+            }
+
+            handleDecrement = () => {
+                this.setState({
+                    counter : this.state.counter - this.state.step,
+                })
+            }
+
+            handleReset = () => {
+                this.setState({
+                    counter: 0,
+                    step: 0,
+                })
+            }
+
+            render() {
+                    return (
+                        <div className="box">
+                            <h2>{this.state.counter}</h2>
+                            <h3>Steps</h3>
+                            <div className="step-box">
+                                {[5,10,15].map((n) => (
+                                    <button 
+                                        key = {n} 
+                                        onClick = {() => this.setState({ step:n })}
+                                        className = {this.state.step === n ? 'active' : ''}
+                                    >{n}</button>
+                                ))}
+                            </div>
+                            <h3>Max</h3>
+                            <div className="step-box">
+                                {[15,100,200].map((n) => (
+                                    <button 
+                                        key = {n}
+                                        onClick = {() => this.setState({ max:n })}
+                                        className = {this.state.max === n ? "active" : ""}
+                                    >{n}</button>
+                                ))}
+                            </div>
+                            <div className="action-box">
+                                <button onClick={this.handleIncrement}>Increment</button>
+                                <button onClick={this.handleDecrement}>Decrement</button>
+                                <button onClick={this.handleReset}>Reset</button>
+                            </div>
+                        </div>
+                    )
+                }
+        }
+
+        ReactDOM.render(<App />, root)
+    </script>
+</body>
+</html>

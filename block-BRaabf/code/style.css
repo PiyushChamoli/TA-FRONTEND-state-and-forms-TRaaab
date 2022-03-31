@@ -100,3 +100,8 @@ h3 {
 button:hover {
     cursor: pointer;
 }
+
+.active {
+    background-color: cornflowerblue !important;
+    color: white !important;
+}
