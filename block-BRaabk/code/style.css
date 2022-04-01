@@ -1,0 +1,127 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*Custom Style*/
+
+
+body {
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    /* display: flex; */
+    /* justify-content: space-between; */
+}
+
+h1 {
+    color: #1B2F45;
+    margin-top: 40px;
+    font-size: 31px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+}
+
+.categories li {
+    margin: 40px 5px;
+    color: #BE9E67;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 7px 15px;
+}
+
+.categories li:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #BE9E67;
+    border-radius: 3px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.flex-45 {
+    flex: 0 1 47%;
+}
+
+.box {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+h2 {
+    display: inline-block;
+    color: #1B2F45;
+    font-size: 20px;
+    margin-right: 7px;
+}
+
+p {
+    padding: 8px 0;
+    line-height: 1;
+    font-size: 19px;
+}
+
+span {
+    color: #BE9E67;
+    font-size: 20px;
+    font-weight: 600;
+}
