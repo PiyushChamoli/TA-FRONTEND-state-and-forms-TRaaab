@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Accordion</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+        let root = document.querySelector('#root')
+
+        let questions = [
+        {
+            Q: 'Who is it for?',
+            A:
+            'Recent college graduates, students taking gap year, dropouts, professionals looking to switch careers, anyone learning web development but needs right environment and guidance. No prior programming knowledge required.',
+        },
+        {
+            Q: 'Does AltCampus help me get a job?',
+            A:
+            'Yes. All we can. We help you at every stage, help you build strong portfolio, prepare for interviews, put you in touch with companies for interview.',
+        },
+        {
+            Q: 'How does the entire process work?',
+            A: 'You can read about it here - How it works.',
+        },
+        {
+            Q: 'Is this course self-paced or batched?',
+            A:
+            'This program follows a blended approach. Students can move at their own pace, however they will be matched with peers learning same concepts.',
+        },
+        ];
+
+        class App extends React.Component {
+            constructor() {
+                super();
+                this.state ={
+                    activeIndex: null,
+                };
+            }
+
+            render() {
+                return (
+                    <ul className="container">
+                        {questions.map((faq,i) => (
+                            <li>
+                                <h2 className='question'
+                                    onClick={() => this.setState(
+                                        { activeIndex: this.state.activeIndex === i ? null : i })}
+                                        >{faq.Q}
+                                </h2>
+                                {i === this.state.activeIndex && <p className='answer'>{faq.A}</p>}    
+                            </li>
+                        ))}
+                    </ul>
+                )
+            }
+        }
+
+        ReactDOM.render(<App />, root)
+    </script>
+</body>
+</html>
