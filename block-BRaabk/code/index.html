@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Food Menu App</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- Data File -->
+    <script src="./data.js"></script>
+    <!-- React CDN -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+        
+        let root = document.querySelector('#root');
+
+        class App extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    active : 'all',
+                };
+            }
+
+            render() {
+                let filteredData = data.filter((obj) => this.state.active === obj.category);
+                return (
+                    <div className = "container">
+                        <h1>Our Menu</h1>
+                        <ul className = 'categories'>
+                            <li onClick = {() => this.setState({ active:'all' })}>All</li>
+                            <li onClick = {() => this.setState({ active:'breakfast' })}>Breakfast</li>
+                            <li onClick = {() => this.setState({ active:'lunch' })}>Lunch</li>
+                            <li onClick = {() => this.setState({ active:'shakes' })}>Shakes</li>    
+                        </ul>
+                        <div className='flex'>{
+                            this.state.active === 'all' ? 
+                            data.map((obj) => (
+                                <div className='flex-45 box'>
+                                    <figure className='flex-45'>
+                                        <img src={obj.img} alt={obj.title} style={{width:'100%'}} />    
+                                    </figure>
+                                    <div className='flex-45'>
+                                        <h2>{obj.title}</h2>
+                                        <span>{obj.price}</span>
+                                        <p>{obj.desc}</p>    
+                                    </div>
+                                </div>
+                            ))
+                            :
+                            filteredData.map((obj) => (
+                                <div className='flex-45 box'>
+                                    <figure className='flex-45'>
+                                        <img src={obj.img} alt={obj.title} style={{width:'100%'}} />    
+                                    </figure>
+                                    <div className='flex-45'>
+                                        <h2>{obj.title}</h2>
+                                        <span>{obj.price}</span>
+                                        <p>{obj.desc}</p>    
+                                    </div>
+                                </div>
+                            ))
+                        }</div>    
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(<App />, root);
+    </script>
+</body>
+</html>
+
+                 
