@@ -10,25 +10,16 @@ class App extends React.Component {
       movie: "",
     };
   }
-  handleClick = (movieName) => {
+  handleClick = (movie) => {
     this.setState((prevState) => {
       return {
         isClicked: !prevState.isClicked,
-        movie: movieName,
+        movie: movie,
       };
     });
   };
-  render() {
-    // let selectedMovie =
-    //   this.state.name && data.find((movie) => movie.Title === this.state.name);
-    let selectedMovie;
-    if (this.state.movie !== "") {
-      selectedMovie = data.find((movie) => movie.Title === this.state.name);
-    } else {
-      selectedMovie = "Avatar";
-    }
-    console.log(selectedMovie);
 
+  render() {
     return (
       <div className="container">
         <h1>Movie List App</h1>
@@ -38,14 +29,16 @@ class App extends React.Component {
               <img src={movie.Images[0]} alt={movie.Title} />
               <h2>{movie.Title}</h2>
               <p>{movie.Released}</p>
-              <button onClick={() => this.handleClick(movie.Title)}>
-                More Info
-              </button>
+              <button onClick={() => this.handleClick(movie)}>More Info</button>
             </div>
           ))}
         </div>
-        <div className={this.state.isClicked ? "visible absolute" : "hidden"}>
-          <MovieDetails {...selectedMovie} />
+        <div
+          className={
+            this.state.isClicked ? "container visible absolute flex" : "hidden"
+          }
+        >
+          {this.state.movie && <MovieDetails {...this.state.movie} />}
           <span onClick={() => this.handleClick("")}>❌</span>
         </div>
       </div>
