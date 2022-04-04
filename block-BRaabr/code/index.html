@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .container {
+        max-width: 450px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      input {
+        display: inline-block;
+        width: 100%;
+        margin: 4px 0 17px 0;
+      }
+
+      textarea {
+        display: inline-block;
+        width: 100%;
+      }
+
+      .error {
+        border: 2px solid red;
+      }
+
+      span {
+        font-size: 12px;
+        color: red;
+        display: block;
+        margin-bottom: 5px;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+      let root = document.getElementById("root");
+
+      class MultipleInput extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            textInput: "",
+            date: "",
+            textarea: "",
+          };
+        }
+
+        handleInput = ({ target }) => {
+          let { name, value } = target;
+
+          this.setState({ [name]: value });
+        };
+
+        render() {
+          return (
+            <div className="container">
+              <form>
+                <label htmlFor="textInput">Text Input</label>
+                <input
+                  type="text"
+                  name="textInput"
+                  id="textInput"
+                  value={this.state.textInput}
+                  onChange={this.handleInput}
+                />
+
+                <label for="date">Date</label>
+                <input
+                  type="date"
+                  name="date"
+                  id="date"
+                  value={this.state.date}
+                  onChange={this.handleInput}
+                />
+
+                <label htmlFor="file">File Input</label>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  //   onChange={this.handleInput}
+                />
+
+                <label htmlFor="read">Read-Only Input</label>
+                <input
+                  type="text"
+                  name="read"
+                  id="read"
+                  value="This is a read only input"
+                  readonly
+                />
+
+                <label htmlFor="disabled">Disabled Input</label>
+                <input type="text" name="disabled" id="disabled" disabled />
+
+                <label htmlFor="textarea">TextArea</label>
+                <textarea
+                  name="textarea"
+                  id="textarea"
+                  cols="30"
+                  rows="5"
+                  value={this.state.textarea}
+                  onChange={this.handleInput}
+                ></textarea>
+
+                <label htmlFor="disabledTextarea">TextArea</label>
+                <textarea
+                  name="disabledTextarea"
+                  id="disabledTextarea"
+                  cols="30"
+                  rows="5"
+                  disabled
+                ></textarea>
+              </form>
+            </div>
+          );
+        }
+      }
+
+      class Validation extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            error: {
+              username: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            },
+          };
+        }
+
+        handleSubmit = (event) => {
+          event.preventDefault();
+          alert(
+            this.state.username +
+              " " +
+              this.state.email +
+              " " +
+              this.state.password +
+              " " +
+              this.state.confirmPassword
+          );
+        };
+
+        RegexEmail = (email) => {
+          let regex = new RegExp("[a-z0-9]+@[a-z]+\.[a-z]{2,3}");
+
+          return regex.test(email);
+        };
+
+        handleInput = ({ target }) => {
+          let { name, value } = target;
+          let error = this.state.error;
+
+          switch (name) {
+            case "username":
+              error.username =
+                value.length < 3
+                  ? "Username must be at least 3 characters"
+                  : "";
+              break;
+            case "email":
+              error.email = this.RegexEmail(value) ? "" : "Email is not valid";
+              break;
+            case "password":
+              error.password =
+                value.length < 6
+                  ? "Password must be at least 6 characters"
+                  : "";
+              break;
+            case "confirmPassword":
+              error.confirmPassword =
+                this.state.password === value ? "" : "Password Mismatch";
+              break;
+            default:
+              break;
+          }
+
+          this.setState({ [name]: value });
+        };
+
+        render() {
+          return (
+            <div className="container">
+              <h1>Register With Us</h1>
+              <form onSubmit={this.handleSubmit}>
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  id="name"
+                  value={this.state.name}
+                  onChange={this.handleInput}
+                  className={this.state.error.username && "error"}
+                />
+                <span>{this.state.error.username}</span>
+
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={this.state.email}
+                  onChange={this.handleInput}
+                  className={this.state.error.email && "error"}
+                />
+                <span>{this.state.error.email}</span>
+
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={this.state.password}
+                  onChange={this.handleInput}
+                  className={this.state.error.password && "error"}
+                />
+                <span>{this.state.error.password}</span>
+
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  value={this.state.confirmPassword}
+                  onChange={this.handleInput}
+                  className={this.state.error.confirmPassword && "error"}
+                />
+                <span>{this.state.error.confirmPassword}</span>
+
+                <input type="submit" value="Submit" />
+              </form>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<Validation />, root);
+    </script>
+  </body>
+</html>
